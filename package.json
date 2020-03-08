@@ -1,0 +1,23 @@
+{
+  "name": "sos1920-l04",
+  "version": "1.0.0",
+  "description": "this is a test",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angloadav/SOS1920-08.git"
+  },
+  "author": "Angel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/angloadav/SOS1920-08/issues"
+  },
+  "homepage": "https://github.com/angloadav/SOS1920-08#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
