@@ -106,6 +106,24 @@ app.delete(BASE_PATH + "/electricity-produced-stats/:state", (req, res) =>{
 	};
 });
 
+//PUT /electricity-produced-stats/:country/:state
+app.put(BASE_PATH + "/electricity-produced-stats/:country/:state", (req, res)=>{
+	var country= req.params.country;
+	var state: req.params.state;
+	var body= req.body;
+	
+	var updatedData= electricityProduced.map((e)=>{
+		var updData=e;
+		if(e.country == country && e.state == state){
+			for(var p in body){
+				updData[p]= body[p];
+			}
+		}
+		return (updData);
+	});
+	
+});
+
 app.listen(port, () => {
 	console.log("Server ready");
 });
