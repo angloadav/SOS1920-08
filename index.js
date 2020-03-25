@@ -109,18 +109,27 @@ app.delete(BASE_PATH + "/electricity-produced-stats/:state", (req, res) =>{
 //PUT /electricity-produced-stats/:country/:state
 app.put(BASE_PATH + "/electricity-produced-stats/:country/:state", (req, res)=>{
 	var country= req.params.country;
-	var state: req.params.state;
+	var state = req.params.state;
 	var body= req.body;
-	
-	var updatedData= electricityProduced.map((e)=>{
-		var updData=e;
-		if(e.country == country && e.state == state){
+	var filteredDataForUpdate= electricityProduced.filter((e)=>{
+		return ((e.country == country) && (e.state == state));
+	});
+	if(filteredDataForUpdate.length ==1){
+		var updatedData= electricityProduced.map((e)=>{
+			var updData=e;
+			if(e.country == country && e.state == state){
 			for(var p in body){
 				updData[p]= body[p];
 			}
 		}
 		return (updData);
 	});
+		electricityProduced= updatedData;
+		res.sendStatus(200, "Data modified");
+		
+	}else{
+		res.sendStatus(404, "Data not found");
+	}
 	
 });
 
