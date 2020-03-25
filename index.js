@@ -26,11 +26,13 @@ app.get(BASE_PATH + "/electricity-produced-stats/loadInitialData", (req, res)=> 
 		];
 	electricityProduced= electricityProducedInitial;
 	res.send(JSON.stringify(electricityProducedInitial, null, 2));
+	res.sendStatus(200, "Initial Data Created");
 });
 
 //GET electricityProduced
 app.get(BASE_PATH+ "/electricity-produced-stats", (req, res) =>{
 	res.send(JSON.stringify(electricityProduced, null, 2));
+	res.sendStatus(200, "Here is your data");
 });
 
 // POST electricity-produced-stats 
@@ -90,6 +92,10 @@ app.get(BASE_PATH + "/electricity-produced-stats/:country/:state", (req, res)=>{
 	
 });
 */
+// POST not allowed on a concrete resource
+app.post(BASE_PATH + "/electricity-produced-stats/:country/:state", (req, res) =>{
+	res.sendStatus(405, "YOU FUCKING DONKEY, THIS IS NOT ALLOWED");
+});
 
 // DELETE /electricity-produced-stats/:country/:state
 
@@ -138,91 +144,3 @@ app.listen(port, () => {
 });
 
 console.log("Starting server...");
-
-
-
-
-
-
-
-/*
-/ GET CONTACTS
-
-app.get(BASE_API_URL+"/contacts", (req,res) =>{
-	res.send(JSON.stringify(contacts,null,2));
-	console.log("Data sent:"+JSON.stringify(contacts,null,2));
-});
-
-
-// POST CONTACTS
-
-app.post(BASE_API_URL+"/contacts",(req,res) =>{
-	
-	var newContact = req.body;
-	
-	if((newContact == "") || (newContact.name == null)){
-		res.sendStatus(400,"BAD REQUEST");
-	} else {
-		contacts.push(newContact); 	
-		res.sendStatus(201,"CREATED");
-	}
-});
-
-// DELETE CONTACTS
-
-app.delete(BASE_API_URL+"/contacts",(req,res) =>{
-	
-	var newContact = req.body;
-	 if(newContact== ""){
-		contacts== newContact; 	
-		res.sendStatus(201,"Contacts deleted");
-	 };
-});
-// GET CONTACT/XXX
-
-app.get(BASE_API_URL+"/contacts/:name", (req,res)=>{
-	
-	var name = req.params.name;
-	
-	var filteredContacts = contacts.filter((c) => {
-		return (c.name == name);
-	});
-	
-	
-	if(filteredContacts.length >= 1){
-		res.send(filteredContacts[0]);
-	}else{
-		res.sendStatus(404,"CONTACT NOT FOUND");
-	}
-});
-
-// PUT CONTACT/XXX
-app.put(BASE_API_URL+"/contacts/:name/:phone", (req,res)=>{
-	
-	var name = req.params.name;
-	var phone = req.params.phone;
-	var updatedContact= req.body;
-	
-	var filteredContacts = contacts.filter((c) => {
-		return (c.name == name && c.phone== phone);
-	});
-		if(filteredContacts.length>0){
-			contacts.name=updatedContact.name;
-			contacts.phone= updatedContact.phone;
-			res.sendStatus(200,"contacto cambiado");
-		}
-	
-});
-// DELETE CONTACT/XXX
-app.delete(BASE_API_URL+"/contacts/:name", (req, res)=>{
-	var name = rep.params.name;
-	var filteredContacts= contacts.filter((c)=> {
-		return (c.name != name);
-	})
-	if(contacts.length > filteredContacts.length){
-		contacts=filteredContacts;
-		res.sendStatus(200, "Contact deleted correctly");
-	}else{
-		res.sendStatus(404, "Contact not found");
-	}
-	*/
